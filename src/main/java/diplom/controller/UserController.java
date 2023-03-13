@@ -1,14 +1,15 @@
-package dip.controller;
+package diplom.controller;
 
-import dip.domain.User;
-import dip.repository.UserRepository;
+import diplom.domain.User;
+import diplom.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/gar")
+@RequestMapping("/gar/users")
 public class UserController {
 
     private final UserRepository repository;
@@ -17,10 +18,12 @@ public class UserController {
         this.repository = repository;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/all")
     @ResponseBody
     public List<User> findAll(){
-        return repository.findAll();
+        List<User> users = new ArrayList<>();
+        repository.findAll().forEach(users::add);
+        return users;
     }
 
     @GetMapping(value = "/{id}")
@@ -31,12 +34,14 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable int id) {
-        repository.remove(id);
+        repository.deleteById(id);
     }
 
     @PostMapping
     public List<User> save(@RequestBody User user) {
-        repository.add(user);
-        return repository.findAll();
+        repository.save(user);
+        List<User> users = new ArrayList<>();
+        repository.findAll().forEach(users::add);
+        return users;
     }
 }
