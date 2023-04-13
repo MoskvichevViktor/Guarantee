@@ -1,0 +1,35 @@
+1 Классы DTO
+2 Как через JSON создать user
+3 service - sql запросы
+4 security - email/password/role
+5 act - date
+6 ограничения по ролям
+
+Примеры JSON:
+{
+    "":"",
+    "":""
+}
+JSON company
+{
+    "companyName":"VKAS"
+}
+
+JSON user
+//если уже есть компания
+{
+    "userName":"V",
+    "userEmail":"@",
+    "role":"ROLE_ADMIN",
+    "company": {
+        "companyId": 1
+    }
+}
+скрипт создание первого пользователя
+insert into guarantee.users (user_email, password, role)
+values ('mike@mail.ru', '$2a$10$bqC3f31hRfLjZQIndARgteWVyCP339LfOZPThz5bmSjszRyNKnnze', 'ROLE_ADMIN');
+
+Разделение по ролям
+1. Создание нового пользователя
+2. Создание акта
+3. Редактирование акта
